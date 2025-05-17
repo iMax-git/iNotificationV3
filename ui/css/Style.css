@@ -10,6 +10,21 @@
   font-family: Inter-Medium;
   src: url("../assets/fonts/Inter-Medium.ttf");
 }
+:root {
+  --card-color: #121212f0;
+  --primary-color: white;
+  --sub-color: #9c9b9b;
+  --key-bg-color: #d9d9d9;
+  --key-color: black;
+  --bar-color: #d9d9d9;
+  --bar-light-color: rgba(
+    255,
+    255,
+    255,
+    0.5
+  );
+}
+
 body {
   margin: 0 10px;
   padding: 0;
@@ -20,10 +35,13 @@ body {
 .main-container {
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  width: 15vw;
   max-width: 380px;
-  height: 100vh;
+  height: 80vh;
   overflow: hidden;
+}
+.main-container.minimap-hidden {
+  height: 100vh;
 }
 .main-container .helpnotification-container {
   display: flex;
@@ -32,11 +50,11 @@ body {
 }
 .main-container .helpnotification-container .helpnotification {
   margin: 5px 0;
-  background-color: #383838;
+  background-color: var(--card-color);
   border-radius: 5px;
-  color: white;
+  color: var(--primary-color);
   font-family: Inter-Medium, serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 .main-container .helpnotification-container .helpnotification .info {
   display: flex;
@@ -46,8 +64,8 @@ body {
   margin: 5px 10px 0;
 }
 .main-container .helpnotification-container .helpnotification .info img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin: 5px;
   border-radius: 30px;
 }
@@ -62,22 +80,22 @@ body {
   padding: 1% 5%;
 }
 .main-container .helpnotification-container .helpnotification .key {
-  background-color: #D9D9D9;
-  color: black;
+  background-color: var(--key-bg-color);
+  color: var(--key-color);
   padding: 3px 6px;
   border-radius: 2px;
   font-family: Inter-Bold, serif;
   font-size: 13px;
 }
 .main-container .helpnotification-container .helpnotification .time-bar {
-  background-color: #D9D9D9;
-  color: black;
+  background-color: var(--bar-color);
   padding: 2px 0;
   border-radius: 0 0 1px 1px;
   font-family: Inter-Bold, serif;
   font-size: 13px;
   width: 0%;
   position: absolute;
+  filter: drop-shadow(0px 0px 5px var(--bar-light-color));
 }
 .main-container .helpnotification-container .timed {
   border-radius: 5px 5px 0 0;
@@ -90,9 +108,9 @@ body {
 }
 .main-container .notification-container .notification {
   margin: 10px 0;
-  background-color: #383838;
+  background-color: var(--card-color);
   border-radius: 5px 5px 0 0;
-  color: white;
+  color: var(--primary-color);
   font-family: Inter-Medium, serif;
   font-size: 14px;
   position: relative;
@@ -100,8 +118,8 @@ body {
 .main-container .notification-container .notification .info {
   display: flex;
   flex-direction: column;
-  padding: 5px 5%;
-  margin: 10px 0;
+  padding: 5px 1%;
+  margin: 0 0;
 }
 .main-container .notification-container .notification .info .title {
   display: flex;
@@ -109,8 +127,8 @@ body {
   align-items: center;
 }
 .main-container .notification-container .notification .info .title img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin: 5px;
   border-radius: 30px;
 }
@@ -121,25 +139,25 @@ body {
   font-family: Inter-Bold, serif;
   margin: 0;
   padding: 0;
-  font-size: large;
+  font-size: medium;
 }
 .main-container .notification-container .notification .info .title .text .subtitle {
   font-family: Inter-Regular, serif;
   margin: 0;
   padding: 0;
-  font-size: medium;
-  color: #9C9B9B;
+  font-size: small;
+  color: var(--sub-color);
 }
 .main-container .notification-container .notification .time-bar {
-  background-color: #D9D9D9;
-  color: black;
-  padding: 2px 0;
+  background-color: var(--bar-color);
+  padding: 1.5px 0;
   border-radius: 0 0 1px 1px;
   font-family: Inter-Bold, serif;
   font-size: 13px;
   width: 0%;
   position: absolute;
   height: 1px;
+  filter: drop-shadow(0px 0px 5px var(--bar-light-color));
 }
 .main-container .notification-container .notification .content {
   display: flex;
@@ -151,24 +169,24 @@ body {
 .main-container .notification-container .notification .content p {
   padding: 10px 5%;
   margin: 0;
+  font-size: 12px;
+  font-family: "Inter-Regular", serif;
 }
 .main-container .notification-container .notification .content .key {
-  background-color: #D9D9D9;
-  color: black;
+  background-color: var(--key-bg-color);
+  color: var(--key-color);
   padding: 3px 6px;
   border-radius: 2px;
   font-family: Inter-Bold, serif;
   font-size: 13px;
 }
 .main-container .notification-container .notification .content .vertical-time-bar {
-  background-color: #D9D9D9;
-  color: black;
-  border-radius: 1px 0 0 0;
+  background-color: var(--bar-color);
   font-family: Inter-Bold, serif;
   font-size: 13px;
-  height: 0%;
-  width: 5px;
-  flex: 0 0 5px;
+  height: 0;
+  flex: 0 0 4px;
+  filter: drop-shadow(0px 0px 5px var(--bar-light-color));
 }
 
 @keyframes width_kill {
@@ -202,4 +220,4 @@ body {
   100% {
     left: -50vh;
   }
-}
+}/*# sourceMappingURL=Style.css.map */

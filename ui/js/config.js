@@ -1,8 +1,6 @@
 /*
- * Copyright (c) 2023 ADN's. All right reserved.
- */
-
-
+  * Copyright (c) 2023 ADN's. All right reserved.
+*/
 
 const Text_color = {
     "w": "white",

@@ -1,16 +1,22 @@
-
 /*
  * Copyright (c) 2023 ADN's. All right reserved.
  */
 
-function Notification(title, subtitle, icon, body, duration,location) {
+function Notification(title, subtitle, icon, body, duration, location, isMiniMapHidden) {
     // Create a new notification
     var notif = document.createElement("div");
     var content = document.createElement("div");
     var timebar = document.createElement("div");
-    notif.className = "notification";
+    notif.className = "notification" + (location === "left" && isMiniMapHidden ? " minimaped" : "");
     content.className = "content";
     timebar.className = "time-bar";
+
+    const mainContainer = document.querySelector(".main-container");
+    if (location === "left" && isMiniMapHidden) {
+        mainContainer.classList.add("minimap-hidden");
+    } else if (location === "left" && !isMiniMapHidden) {
+        mainContainer.classList.remove("minimap-hidden");
+    }
 
     // Create content of notification
     var verticaltimebar = document.createElement("div");
@@ -82,10 +88,10 @@ function Notification(title, subtitle, icon, body, duration,location) {
     notif.style.animation = "show 0.5s ease-in-out forwards";
     timebar.style.animation = "width_kill " + duration + "s linear";
     verticaltimebar.style.animation = "height_kill " + duration + "s linear";
-
-    setTimeout(function() {
+    
+    notif.dataset.to1 = setTimeout(function() {
         notif.style.animation = "hide 0.5s ease-in-out forwards";
-        setTimeout(function() {
+        notif.dataset.to2 = setTimeout(function() {
             REF.removeChild(notif);
         }, 500);
 
@@ -146,9 +152,9 @@ function HelpNotification(title, icon, body, duration,location) {
     REF.appendChild(helpnotif);
     helpnotif.style.animation = "show 0.5s ease-in-out forwards";
 
-    setTimeout(function () {
+    helpnotif.dataset.to1 = setTimeout(function () {
         helpnotif.style.animation = "hide 0.5s ease-in-out forwards";
-        setTimeout(function () {
+        helpnotif.dataset.to2 = setTimeout(function () {
             REF.removeChild(helpnotif);
         }, 500);
 
@@ -159,13 +165,33 @@ function HelpNotification(title, icon, body, duration,location) {
 
 
 
+function NotificationExists(text) {
+    var notifications = document.querySelectorAll(".notification");
+    for (var i = 0; i < notifications.length; i++) {
+        var len = notifications[i].querySelectorAll(".info p").length;
+        if (notifications[i].querySelectorAll(".info p")[len-1].innerHTML == text) {
+            return notifications[i];
+        }
+    }
+    return null;
+}
 
+function HelpNotificationExists(text) {
+    var helpnotifications = document.querySelectorAll(".helpnotification");
+    for (var i = 0; i < helpnotifications.length; i++) {
+        var len = helpnotifications[i].querySelectorAll("p").length;
+        if (helpnotifications[i].querySelectorAll("p")[len-1].innerHTML == text) {
+            return helpnotifications[i];
+        }
+    }
+    return null;
+}
 
 
 
 
 function isDefined(param) {
-    return typeof param !== "undefined";
+    return typeof param !== "undefined" && param !== null;
 }
 
 function format(text) {
@@ -183,21 +209,21 @@ function format(text) {
             if (isDefined(Text_color[INFO])){
                 currentColor = Text_color[INFO];
                 if (!everColoring) {
-                    finalText += "<span style='color: " + currentColor + "'>";
+                    finalText += "<span style=\"color: " + currentColor + "\">";
                     everColoring = true;
                 } else {
-                    finalText += "</span><span style='color: " + currentColor + "'>";
+                    finalText += "</span><span style=\"color: " + currentColor + "\">";
                 }
             } else if(isDefined(Fonts_modifiers[INFO])){
                 currentColor = Fonts_modifiers[INFO];
                 if (!everColoring) {
-                    finalText += "<span style='" + currentColor + "'>";
+                    finalText += "<span style=\"" + currentColor + "\">";
                     everColoring = true;
                 } else {
-                    finalText += "</span><span style='" + currentColor + "'>";
+                    finalText += "</span><span style=\"" + currentColor + "\">";
                 }
             } else if(isDefined(Keys[INFO])){
-                finalText += "<span class='key'>" + Keys[INFO] + "</span>";
+                finalText += "<span class=\"key\">" + Keys[INFO] + "</span>";
             }
 
         } else {
